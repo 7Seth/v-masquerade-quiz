@@ -1,4 +1,373 @@
-<html>
-  <h1>EM BREVE!</h1>
-    <h4>TENHA PACIÊNCIA!</h4>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A qual Clã de Vampiro você pertence?</title>
+<meta name="description" content="Quiz de 11 perguntas para descobrir seu clã em Vampiro: A Máscara (V5).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lexend:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#000;--fg:#f4f4f5;--fg-rgb:244,244,245;--muted:#b9b9be;--blood:#c8101e;--blood-rgb:200,16,30;--blood-edge-l:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 40' preserveAspectRatio='none'%3E%3Cpath d='M0%2C0H84C90%2C2 94%2C4 91%2C8C88%2C12 95%2C13 96%2C17C97%2C21 90%2C22 90%2C26C90%2C30 97%2C31 94%2C35C92%2C38 90%2C39 87%2C40H0Z' fill='white'/%3E%3C/svg%3E");--blood-edge-r:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 40' preserveAspectRatio='none'%3E%3Cpath transform='translate%28100 0%29 scale%28-1 1%29' d='M0%2C0H84C90%2C2 94%2C4 91%2C8C88%2C12 95%2C13 96%2C17C97%2C21 90%2C22 90%2C26C90%2C30 97%2C31 94%2C35C92%2C38 90%2C39 87%2C40H0Z' fill='white'/%3E%3C/svg%3E");}
+html{scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;padding:3rem clamp(1rem,3vw,2.5rem) 4rem;min-height:100vh;background:var(--bg);color:var(--fg);font-family:"Lexend",system-ui,sans-serif;line-height:1.6}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+main{width:100%;max-width:none;margin:0}
+main:focus{outline:none}
+.skip{position:absolute;left:1rem;top:-4rem;z-index:100;padding:.6rem 1rem;background:#000;color:#fff;border:1px solid #fff}
+.skip:focus{top:1rem}
+.logos{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:1.2rem 2.4rem;margin:0 0 2.4rem}
+.logos img{display:block;width:auto;object-fit:contain}
+.logo-vtm{height:4.6rem;max-width:min(22rem,80vw)}
+.logo-dp{height:2.6rem;max-width:min(9rem,40vw)}
+.logos a:focus-visible{outline:2px solid #fff;outline-offset:4px}
+h1{margin:0;font-family:"Cinzel",serif;font-size:clamp(1.6rem,4vw,2.4rem);letter-spacing:.12em;text-align:center;line-height:1.25}
+h1::after{content:"";display:block;width:7rem;height:1px;margin:1rem auto 0;background:linear-gradient(90deg,transparent,var(--blood),transparent)}
+.lead{text-align:center;color:var(--muted);margin:.8rem 0 2rem}
+#quiz fieldset{min-width:0;margin:2rem 0 0;padding:2rem clamp(1.2rem,3vw,2.5rem) 2.2rem;border:0;background:rgba(var(--fg-rgb),.03)}
+#quiz fieldset.falta{box-shadow:0 0 0 2px #fff}
+#quiz legend{float:left;width:100%;padding:0;margin-bottom:1.4rem;font-size:clamp(1.3rem,2.2vw,1.7rem);line-height:1.4;letter-spacing:.03em;text-transform:uppercase}
+#quiz legend+*{clear:both}
+#quiz p{margin:.9rem 0 0}
+#quiz label{position:relative;display:block;margin-top:.5rem;padding:.7rem 1rem .7rem 2.7rem;border:1px solid rgba(var(--fg-rgb),.2);line-height:1.45;cursor:pointer}
+#quiz label::before{content:"";position:absolute;left:1rem;top:50%;width:.8rem;height:.8rem;margin-top:-.4rem;border:2px solid var(--fg);transform:rotate(45deg)}
+#quiz label:has([type=checkbox])::before{transform:none}
+#quiz label:hover{border-color:rgba(var(--fg-rgb),.6)}
+#quiz label:has(:checked){border-color:var(--blood);background:rgba(var(--fg-rgb),.06);color:var(--blood)}
+#quiz select.resp{color:var(--blood);border-color:var(--blood)}
+#quiz label:has(:checked)::before{background:var(--blood);border-color:var(--blood)}
+#quiz label:has(:focus-visible){outline:2px solid #fff;outline-offset:2px}
+#quiz input[type=radio],#quiz input[type=checkbox]{position:absolute;opacity:0;width:0;height:0;pointer-events:none}
+#quiz label+br{display:none}
+.lv{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.5rem}
+.lv label{flex:1 1 7rem;margin-top:0}
+#quiz table{display:grid;grid-template-columns:repeat(10,1fr);gap:.3rem;width:100%;margin-top:.6rem;border:0}
+#quiz tbody,#quiz tr{display:contents}
+#quiz td{display:block;padding:0;border:0}
+#quiz td label{margin:0;padding:.7rem 0;text-align:center}
+#quiz td label::before{display:none}
+#quiz output{font-weight:700}
+#aviso{font-weight:700;color:#ff7a84}
+#quiz select{width:100%;margin-top:.3rem;padding:.7rem 2.4rem .7rem .9rem;border:1px solid rgba(var(--fg-rgb),.3);color:var(--fg);font:inherit;-webkit-appearance:none;appearance:none;
+background:rgba(var(--fg-rgb),.05) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23c8101e'/%3E%3C/svg%3E") no-repeat right .9rem center/.8rem}
+#quiz select option{background:var(--bg);color:var(--fg)}
+#quiz select:focus-visible{outline:2px solid #fff;outline-offset:2px}
+#erro{width:fit-content;max-width:100%;margin:1.2rem auto 0;padding:.7rem 0;color:#ff7a84;font-weight:700}
+#erro:empty{display:none}
+/* Botões: placa original do site (sangue entra pelos dois lados) */
+.plaque{position:relative;display:inline-flex;align-items:center;justify-content:center;min-width:12rem;padding:.8rem 2rem;
+  font-family:"Cinzel",serif;font-weight:400;font-size:.88rem;letter-spacing:.16em;white-space:nowrap;color:var(--fg);
+  background:radial-gradient(circle at 50% 50%,rgba(var(--blood-rgb),.35),transparent 60%),linear-gradient(180deg,#1a1a1c,#070707 48%,#000 52%,#141416);
+  box-shadow:inset 0 0 0 2px #b9bac0,inset 0 0 0 4px #1b1b1d,inset 0 0 0 5px rgba(var(--blood-rgb),.7),inset 0 10px 16px rgba(255,255,255,.08),inset 0 -12px 18px rgba(0,0,0,.8);
+  text-shadow:0 2px 3px #000;transition:transform .3s,color .3s;isolation:isolate;overflow:hidden}
+/* Sangue: entra pela esquerda e pela direita e se fecha no centro, só no miolo (a moldura de 5px fica livre) */
+.plaque::before,.plaque::after{content:"";position:absolute;top:5px;bottom:5px;width:calc(60% - 5px);z-index:-1;pointer-events:none;
+  background-color:var(--blood);background-size:100% 100%,100% 100%,100% 100%;background-repeat:no-repeat;background-position:0 0,0 0,0 0;
+  -webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+  transition:transform .8s cubic-bezier(.65,0,.25,1)}
+.plaque::before{left:5px;transform:translateX(-125%);-webkit-mask-image:var(--blood-edge-l);mask-image:var(--blood-edge-l);
+  background-image:radial-gradient(ellipse 70% 130% at 0% 40%,rgba(255,255,255,.24),transparent 62%),radial-gradient(ellipse 60% 150% at 100% 55%,rgba(0,0,0,.6),transparent 68%),linear-gradient(180deg,rgba(255,255,255,.2),transparent 36%,rgba(0,0,0,.42))}
+.plaque::after{right:5px;transform:translateX(125%);-webkit-mask-image:var(--blood-edge-r);mask-image:var(--blood-edge-r);transition-delay:.07s;
+  background-image:radial-gradient(ellipse 70% 130% at 100% 40%,rgba(255,255,255,.24),transparent 62%),radial-gradient(ellipse 60% 150% at 0% 55%,rgba(0,0,0,.6),transparent 68%),linear-gradient(180deg,rgba(255,255,255,.2),transparent 36%,rgba(0,0,0,.42))}
+.plaque:hover::before,.plaque:hover::after,.plaque:focus-visible::before,.plaque:focus-visible::after,.plaque.active::before,.plaque.active::after{transform:none}
+.plaque:hover,.plaque:focus-visible{transform:scale(1.05);outline:none}
+.plaque.active{color:#fff}
+.plaque:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.plaque.sm{min-width:0;padding:.7rem 1.2rem;font-size:.8rem;letter-spacing:.1em}
+#ok{display:flex;width:fit-content;min-width:16rem;margin:2rem auto 0}
+#res{margin-top:1rem}
+#res>p:first-child{text-align:center}
+#res hr{height:1px;margin:2rem 0 1.2rem;border:0;background:linear-gradient(90deg,transparent,var(--blood),transparent)}
+#res h2{margin:0;font-family:"Cinzel",serif;font-size:clamp(1.5rem,4vw,2.1rem);letter-spacing:.1em;text-align:center}
+#res h3{margin:2rem 0 0;font-family:"Cinzel",serif;font-size:1.2rem;letter-spacing:.08em}
+#res h4{margin:1.6rem 0 0;font-family:"Cinzel",serif;font-size:1.1rem;letter-spacing:.08em;color:var(--blood)}
+#res p,#res li{margin:.7rem 0 0;color:rgba(var(--fg-rgb),.9)}
+#res ol,#res ul{padding-left:1.4rem}
+#res h2+p{text-align:center;color:var(--muted)}
+#res table{width:100%;margin-top:.8rem;border-collapse:collapse;border:0}
+#res th,#res td{padding:.5rem .7rem;border:0;border-bottom:1px solid rgba(var(--fg-rgb),.2);text-align:left}
+#res th{font-family:"Cinzel",serif;color:var(--blood)}
+dialog{width:min(26rem,92vw);padding:1.4rem;border:2px solid #b9bac0;background:var(--bg);color:var(--fg)}
+dialog::backdrop{background:rgba(0,0,0,.78)}
+dialog h2{margin:0;font-family:"Cinzel",serif;font-size:1.25rem;letter-spacing:.08em;text-align:center}
+dialog img{display:block;width:100%;height:auto;margin-top:1rem}
+dialog p{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;margin:1rem 0 0}
+@media (max-width:700px){body{padding:2rem .75rem 2.5rem}#quiz fieldset{padding:1.4rem 1rem 1.6rem}#quiz table{grid-template-columns:repeat(5,1fr)}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Ir para o quiz</a>
+<main id="main" tabindex="-1">
+<div class="logos">
+<img class="logo-vtm" src="https://www.dropbox.com/scl/fi/uur159l8xu7chb15ejm65/image.png?rlkey=7qke80p0ywg0y379rpkdz795r&amp;raw=1" alt="Vampiro: A Máscara" decoding="async">
+<a href="https://www.paradoxinteractive.com/games/world-of-darkness/community/dark-pack-agreement" target="_blank" rel="noopener noreferrer" aria-label="Dark Pack Agreement — Paradox Interactive" title="Dark Pack Agreement — Paradox Interactive"><img class="logo-dp" src="https://www.dropbox.com/scl/fi/qa3dxtbvuj36pdhfc1zf5/DarkPack_Logo1.png?rlkey=ileo03lc2mkpe2g4dpn0mzwr4&amp;st=nk8lk68k&amp;raw=1" alt="Dark Pack" decoding="async"></a>
+</div>
+<h1>A qual Clã de Vampiro você pertence?</h1>
+<p class="lead">Responda como você é quando ninguém está olhando. São 11 perguntas, todas obrigatórias.</p>
+<div id="quiz"></div>
+<p id="erro" role="alert"></p>
+<button id="ok" type="button" class="plaque">Ver resultado</button>
+<div id="res" aria-live="polite"></div>
+</main>
+
+<dialog id="dlg" aria-labelledby="dlgt">
+<h2 id="dlgt">Compartilhe o seu resultado</h2>
+<img id="pv" alt="Card com o seu clã" width="360">
+<p><button type="button" class="plaque sm" onclick="baixa()">Baixar imagem</button> <button type="button" class="plaque sm" onclick="compartilha()">Compartilhar</button> <button type="button" class="plaque sm" onclick="document.getElementById('dlg').close()">Fechar</button></p>
+</dialog>
+
+<script>
+const C={
+BRU:["Brujah","Celerity, Potence, Presence","Temperamento Violento: a raiva explode com facilidade","Rebelião: contestar ordens e se opor a quem manda","O Rebelde Apaixonado","Se ninguém luta pela causa, eu luto.","Paixão, lealdade, coragem","Impulsividade e raiva","Os Brujah são os rebeldes passionais da noite: vampiros movidos por causas, ideais e raiva contra a injustiça. Vivem na rua, em bandos e nas revoltas, e costumam ser a consciência (e a dor de cabeça) das cidades. Combinam com quem quer um personagem intenso, leal e combativo."],
+GAN:["Gangrel","Animalism, Fortitude, Protean","Feições Bestiais: traços animais surgem sob estresse","Impulsos Selvagens: agir pelo instinto, sem filtro","O Sobrevivente Livre","Nenhuma coleira me segura.","Instinto, resistência, independência","Isolamento e perda de humanidade","Os Gangrel são os sobreviventes do mundo selvagem: errantes, independentes e próximos do instinto animal. Preferem a estrada, a mata e a periferia aos salões da política, e estão entre os mais resistentes da noite. Combinam com quem quer liberdade, instinto e um personagem pouco domesticável."],
+MAL:["Malkavian","Auspex, Dominate, Obfuscate","Perspectiva Fraturada: a mente enxerga o mundo de forma distorcida","Delírio: agir de modo desconectado da realidade","O Oráculo Perturbado","Eu vejo o que vocês preferem ignorar.","Intuição, criatividade, visão","Instabilidade e solidão","Os Malkavian enxergam o que os outros não enxergam: o clã carrega uma percepção fraturada do mundo, que mistura loucura, intuição e verdades incômodas. São oráculos, bufões e investigadores do impossível. Combinam com quem quer um personagem imprevisível, perceptivo e profundamente humano."],
+NOS:["Nosferatu","Animalism, Obfuscate, Potence","Repulsa: a aparência monstruosa impede de se misturar aos mortais","Criptofilia: obsessão por segredos","O Guardião dos Segredos","Quem sabe de tudo não precisa de rosto.","Discrição, informação, lealdade","Isolamento e desconfiança","Os Nosferatu são os senhores dos segredos: deformados pela maldição, vivem nos subterrâneos e usam a informação como moeda. Formam a rede de espionagem dos Kindred e conhecem esgotos, arquivos e as mentiras de todos. Combinam com quem quer lealdade silenciosa, astúcia e um personagem que vence pelo que sabe."],
+TOR:["Toreador","Auspex, Celerity, Presence","Fixação Estética: a beleza arrebata e paralisa","Obsessão: fixar-se em algo ou alguém","O Esteta Apaixonado","A eternidade é curta demais para o feio.","Sensibilidade, charme, criatividade","Vaidade e dependência de aprovação","Os Toreador são os amantes da beleza: artistas, críticos e estetas eternos, atraídos por tudo que é sublime. Dominam a sociedade vampírica com carisma e bom gosto, mas podem se perder em obsessões. Combinam com quem quer um personagem sensível, sedutor e emocional."],
+TRE:["Tremere","Auspex, Blood Sorcery, Dominate","Sangue Deficiente: o sangue do clã é pouco confiável para Abraços e laços","Perfeccionismo: não largar a tarefa até ficar perfeita","O Erudito Calculista","Conhecimento é a única moeda que não desvaloriza.","Estratégia, disciplina, saber","Rigidez e ambição obsessiva","Os Tremere são os eruditos do sangue: feiticeiros que transformam estudo e disciplina em poder, dentro de uma estrutura rígida. Combinam magia, estratégia e ambição, e raramente agem sem plano. Combinam com quem quer um personagem calculista, metódico e fascinado por conhecimento."],
+VEN:["Ventrue","Dominate, Fortitude, Presence","Gostos Refinados: só aceita um tipo específico de presa","Arrogância: impor a própria vontade e recusar ser contrariado","O Líder Nato","Alguém precisa decidir, e esse alguém sou eu.","Liderança, responsabilidade, visão","Controle excessivo e orgulho","Os Ventrue são a linhagem dos líderes: aristocratas da noite que governam cidades, empresas e instituições. Pesam responsabilidade e privilégio, e se orgulham da ordem e da tradição. Combinam com quem quer um personagem com autoridade, visão e peso nas decisões."],
+HAQ:["Banu Haqim","Blood Sorcery, Celerity, Obfuscate","Sede de Sangue Vampírico: o sangue de outros vampiros vicia e arrisca o frenesi","Julgamento: a obrigação de julgar e punir","O Juiz Implacável","Toda dívida de sangue é cobrada.","Justiça, disciplina, foco","Rigidez moral e vício","Os Banu Haqim são os juízes do sangue: seguem um código de justiça e punem os culpados, muitas vezes como assassinos disciplinados. Vigilantes e austeros, equilibram dever e vício. Combinam com quem quer um personagem justo, focado e moralmente rígido."],
+HEC:["Hecata","Auspex, Fortitude, Oblivion","Palidez Mortal: aparência cadavérica","Morbidez: fascínio pela morte e pelo fim","O Guardião dos Mortos","Os mortos falam, e eu escuto.","Empatia com o fim, memória, resistência","Frieza e apego ao passado","Os Hecata são os guardiões dos mortos: necromantes e médiuns que ligam família, morte e memória. Vivem entre funerárias, cemitérios e espíritos, e entendem o fim melhor que ninguém. Combinam com quem quer um personagem frio, ancestral e ligado a lutos e legados."],
+LAS:["Lasombra","Dominate, Oblivion, Potence","Imagem Distorcida: espelhos e câmeras não os registram direito","Impiedade: eliminar o obstáculo a qualquer custo","O Mestre das Sombras","O poder real mora onde a luz não alcança.","Ambição, autoridade, determinação","Crueldade e soberba","Os Lasombra são os mestres das sombras: vampiros ambiciosos que dominam pela vontade e pela escuridão. Orgulhosos e implacáveis, valorizam poder, hierarquia e posição, e controlam o que a luz não alcança. Combinam com quem quer um personagem imponente, cruel quando necessário e movido por ambição."],
+MIN:["Ministério","Obfuscate, Presence, Protean","Aversão à Luz: luz forte os incomoda mais que aos outros vampiros","Transgressão: quebrar tabus e regras","O Profeta Sedutor","Liberte-se: a verdadeira fé é a escolha.","Carisma, persuasão, ousadia","Manipulação e fanatismo","Os do Ministério são os profetas da libertação: tentadores e guias que libertam os outros de dogmas, vícios e medos. Carismáticos, unem fé, sedução e rebeldia, e atraem devotos. Combinam com quem quer um personagem persuasivo, ousado e com visão messiânica ou filosófica."],
+RAV:["Ravnos","Animalism, Obfuscate, Presence","Condenados: não conseguem descansar muito tempo no mesmo lugar","Tentar o Destino: assumir riscos desnecessários","O Andarilho Ilusionista","A sorte favorece quem ri da corda bamba.","Adaptabilidade, charme, astúcia","Inquietude e desconfiança","Os Ravnos são os andarilhos ilusionistas: viajantes e trapaceiros que vivem do engano, da improvisação e da sorte. Carregam uma maldição de errantes e uma fama de ladrões e contadores de histórias. Combinam com quem quer um personagem astuto, carismático e sempre em movimento."],
+SAL:["Salubri","Auspex, Dominate, Fortitude","Perseguidos: marcados pelo terceiro olho e caçados por isso","Empatia Afetiva: sentir demais a dor alheia","O Curandeiro Perseguido","Se eu não cuidar, quem cuidará?","Compaixão, resiliência, serenidade","Autossacrifício e culpa","Os Salubri são os curadores perseguidos: guardiões que carregam culpa e compaixão, marcados pelo terceiro olho. São raros, ainda caçados, e vivem entre o desejo de proteger e o medo de serem descobertos. Combinam com quem quer um personagem empático, resiliente e à margem."],
+TZI:["Tzimisce","Animalism, Dominate, Protean","Aterrado: ligado à terra e ao território onde descansa","Cobiça: possuir o que deseja","O Escultor Obsessivo","Tudo pode ser transformado, inclusive eu.","Criatividade, visão, transformação","Possessividade e frieza","Os Tzimisce são os escultores da carne e da mente: vampiros antigos, ligados à terra e à obsessão de transformar tudo, inclusive a si mesmos. Misturam elegância, estranheza e instinto territorial. Combinam com quem quer um personagem criativo, perturbador e profundamente possessivo."]
+};
+
+const Q=[
+{k:"s",t:"Seis dilemas do dia a dia. Em cada um, marque um número de 1 a 10: quanto mais perto do 1, mais você se identifica com a primeira frase; quanto mais perto do 10, mais com a segunda.",r:[
+["Quando decido algo importante, confio no que sinto, mesmo sem saber explicar o motivo.","Quando decido algo importante, reúno informações, peso as consequências e só então ajo.","BRU TOR GAN MIN SAL","VEN TRE LAS HEC"],
+["Gosto de ser visto: ambientes cheios, atenção, um palco onde eu possa brilhar.","Prefiro agir nos bastidores: sem ser notado, vendo tudo e influenciando de longe.","TOR BRU MIN RAV","NOS TRE HEC LAS HAQ"],
+["Regras e tradições existem por um motivo; quem as quebra coloca todos em risco.","Regras são invenção de quem já está no poder; o mundo é um jogo feito para ser contornado.","VEN HAQ TRE","RAV MAL TZI GAN BRU"],
+["Quando alguém me ofende, respondo na hora, de frente, doa a quem doer.","Quando alguém me ofende, espero, planejo e cobro no momento em que ninguém espera.","BRU GAN","LAS HAQ NOS VEN TRE"],
+["Preciso de um grupo, uma família ou uma causa: alguém por quem lutar e que lute por mim.","Confio mais em mim mesmo; vínculos me prendem, me expõem e me tornam vulnerável.","BRU SAL TOR MIN","NOS HEC GAN RAV HAQ"],
+["Prefiro o que é estável, previsível e já comprovado: tradição, rotina, método.","Estou sempre me reinventando; o estranho e o desconhecido me atraem mais que o familiar.","VEN TRE HAQ HEC","MAL TZI RAV MIN TOR"]]},
+{k:"p",t:"A frase que ficou: escolha uma que mais te define e outra que mais dói ouvir.",s:[["Mais me define",2],["Mais dói ouvir",1]],o:[
+["Você nunca desiste, nem quando deveria.","BRU GAN"],["Você sabe demais sobre todo mundo.","NOS TRE"],["Você parece viver em outro mundo.","MAL HEC"],["Você precisa de plateia.","TOR MIN"],["Você manda e ninguém percebe que obedece.","VEN LAS"],["Você cuida de todos, menos de você.","SAL GAN"],["Você é implacável quando acha que está certo.","HAQ BRU"],["Você nunca fica no mesmo lugar.","RAV GAN"],["Você muda e transforma tudo que toca.","TZI TOR"],["Você parece pertencer a outra época.","HEC TOR"],["Você promete mais do que entrega, mas encanta mesmo assim.","RAV MIN"]]},
+{k:"f",t:"Imagine que sua energia é limitada: você tem {n} pontos para gastar durante toda a sua existência.<br>Distribua-os entre as áreas abaixo usando as três caixas de intensidade de cada uma:<br>“Me atrai” (há interesse, mas é secundário),<br>“Me move” (é importante e influencia as suas escolhas) e<br>“Me consome” (é parte central de quem você é).<br>Marcar um nível alto preenche os anteriores, e cada caixa marcada custa 1 ponto, então uma área no nível máximo custa 3.<br>Você deve gastar todos os {n} pontos.",o:[
+["Os meus: família, amigos, matilha ou qualquer companhia que eu escolhi e defenderia.","BRU GAN SAL"],
+["Dominar um saber: estudar, descobrir segredos e entender como tudo funciona por baixo.","TRE TZI HAQ"],
+["Uma causa maior: justiça, revolução ou fé em algo que me ultrapassa.","BRU MIN HAQ"],
+["Criar e me expressar: arte, música, moda, ou transformar o mundo em algo belo ou estranho.","TOR TZI MAL"],
+["Poder e posição: cargos, influência e controle sobre quem toma as decisões.","VEN LAS"],
+["Silêncio, segredos e solidão: observar sem ser visto e guardar o que sei.","NOS HEC GAN"],
+["Cuidar de quem sofre: ajudar, curar e aliviar a dor de quem ninguém vê.","SAL HEC"],
+["Liberdade e movimento: viajar, improvisar, não ter dono nem endereço fixo.","RAV GAN MAL"],
+["Morte, memória e legado: guardar o que foi perdido e lidar com o que vem depois do fim.","HEC SAL"],
+["Sedução e influência pessoal: encantar, persuadir e ser desejado.","TOR MIN RAV"]]},
+{k:"u",t:"Por que escolheram você para o Abraço?",o:[
+["Eu era útil: contatos, dinheiro, influência.","VEN2 LAS1"],["Sobrevivi a algo que devia ter me matado.","GAN2 SAL1"],["Eu era brilhante e obsessivo com um saber.","TRE2 TZI1"],["Meu criador se fascinou por mim.","TOR2 MIN1"],["Eu vi ou soube algo que não devia.","NOS2 HAQ1"],["Eu estava morrendo e ninguém veio.","HEC2 SAL1"],["Foi um acidente, ou uma piada cruel.","MAL2 RAV1"],["Eu liderava uma revolta e queriam me calar ou me usar.","BRU2 HAQ1"],["Fui escolhido para um propósito: carregar um fardo, uma missão ou uma herança.","SAL2 MIN1"],["Um ritual ou pacto exigiu o meu sangue.","TRE2 HEC1"],["Eu era matéria-prima: meu corpo ou minha mente interessavam a quem me criou.","TZI2 MAL1"],["Fui um presente, ou uma oferenda, para alguém poderoso.","LAS2 TOR1"]]},
+{k:"u",t:"Onde foi a noite do Abraço?",o:[
+["Num beco, depois de uma briga que perdi.","BRU2 GAN1"],["Numa festa elegante, entre taças e espelhos.","TOR2 VEN1"],["Num hospital ou velório.","HEC2 SAL1"],["Num laboratório ou biblioteca, lendo o que era proibido.","TRE2 TZI1"],["Num culto, e aceitei de olhos abertos.","MIN2 LAS1"],["Não lembro: acordei já enterrado.","NOS2 MAL1"],["Numa fuga, no meio de uma perseguição.","RAV2 GAN1"],["Depois de um acordo: aceitei em troca de cumprir uma sentença.","HAQ2 LAS1"],["Num cemitério, cripta ou jazigo antigo.","HEC2 NOS1"],["Em plena natureza: floresta, estrada deserta ou campo aberto.","GAN2 RAV1"],["Num salão de pedra ou tribunal, no meio de um jogo de poder.","VEN2 LAS1"],["Num porão, esgoto ou túnel esquecido.","NOS2 MAL1"],["Numa caravana, feira ou circo itinerante, entre desconhecidos.","RAV2 TOR1"],["Num ateliê ou palco, em plena criação.","TOR2 TZI1"]]},
+{k:"u",t:"Complete: “Ao acordar morto, a primeira coisa que fiz foi...”",o:[
+["Procurar quem fez isso e exigir explicações.","BRU2 VEN1"],["Examinar meu corpo e pesquisar o que eu era.","TRE2 TZI1"],["Rir, sem saber por quê.","MAL2 RAV1"],["Chorar por quem deixei para trás.","SAL2 TOR1"],["Sumir antes que me vissem.","NOS2 GAN1"],["Sentir fome e já querer mais.","LAS2 MIN1"],["Me ajoelhar, achando que fui escolhido por algo maior.","MIN2 HEC1"],["Agradecer, mesmo sem saber a quem.","SAL2 MIN1"],["Rir da morte e perguntar o que mais eu podia fazer.","RAV2 TOR1"],["Ouvir os sussurros de quem já se foi.","HEC2 MAL1"],["Testar os limites do meu novo corpo, curioso com o que ele pode virar.","TZI2 GAN1"]]},
+{k:"p",t:"Quem você caça? Escolha o perfil de presa que mais caçaria, o segundo que escolheria e, por fim, quem você jamais caçaria.",s:[["Mais caçaria",2],["Segunda opção",1],["Jamais caçaria (limite pessoal)",1,[
+["Inocentes que nunca fizeram mal a ninguém, como crianças ou pessoas indefesas.","HAQ SAL BRU"],
+["Quem eu conheço: amigos, família, gente com quem tenho vínculo.","GAN BRU TOR SAL"],
+["Quem está doente ou morrendo: parece abuso, não caça.","SAL BRU TOR VEN"],
+["Gente poderosa ou bem protegida: o risco de ser descoberto não compensa.","NOS GAN RAV"],
+["Quem já me é devoto ou viciado em mim: é fácil demais, não é caça.","HAQ GAN BRU NOS"],
+["Pessoas de fé sincera: não mexo com o sagrado dos outros.","VEN TRE HEC"],
+["Artistas e criadores: o mundo precisa do que eles fazem.","TOR MIN MAL SAL"],
+["Quem vive isolado e sumiria sem deixar rastro: isso não é caça, é apagar uma vida inteira.","SAL HAQ BRU"]]]],o:[
+["Quem ninguém notaria desaparecer.","NOS GAN"],["Quem tem culpa: criminosos, abusadores.","HAQ BRU"],["Quem é intenso, belo ou apaixonado.","TOR MIN"],["Quem tem poder: políticos, ricos.","VEN LAS"],["Quem está morrendo ou já morto.","HEC SAL"],["Devotos e viciados que voltam por vontade própria.","MIN LAS"],["Quem eu estudei antes e achei curioso.","TRE TZI MAL"],["O primeiro que cruzar o meu caminho.","RAV GAN BRU"],["Fugitivos, viajantes e gente sem raízes: quem já está à margem.","RAV SAL GAN"],["Rivais e inimigos que ameaçam o meu grupo ou o meu lugar.","BRU LAS HAQ"]]},
+{k:"u",t:"A eternidade vai tirar algo de você, e você só pode escolher uma coisa que já não terá. Qual perda doeria mais?",o:[
+["Minha liberdade: ser trancado, vigiado ou preso a uma rotina, a um lugar ou a um dono, sem poder partir quando eu quiser.","GAN2 RAV1 BRU1"],
+["O controle da situação: ver meus planos, minha posição e as pessoas ao meu redor escaparem das minhas mãos, dependendo da decisão de outros.","VEN2 LAS1 TRE1"],
+["O que me faz admirado: minha imagem, minha arte, meu nome e o encanto que causo nos outros.","TOR2 MIN1"],
+["Minha privacidade: ter meus segredos, meu passado e meu refúgio expostos, sem ter onde me esconder de ninguém.","NOS2 HEC1"],
+["Quem eu sou: minha memória, minha mente ou minha identidade se desfazendo, sem saber mais o que é real.","MAL2 TZI1"],
+["Meu propósito: meu código, minha causa e a certeza de estar fazendo o certo, e com eles o sentido de continuar existindo.","HAQ2 SAL1"],
+["Os meus: as pessoas que confiam em mim e por quem eu luto, e acabar sozinho depois de tudo.","BRU2 GAN1"],
+["Minha fé: a filosofia ou a ideia maior que dava sentido a tudo, e com ela o rumo e o motivo de seguir.","MIN2 HEC1"]]},
+{k:"p",t:"Um vampiro rival aparece no seu território. Escolha o que você faria e o que jamais faria.",s:[["Você faria",2],["Você jamais faria",-1]],o:[
+["Desafiar abertamente.","BRU GAN"],["Propor um acordo e anotar o que ele quer.","VEN LAS TRE"],["Observar por semanas e usar o que descobri.","NOS HAQ"],["Convidá-lo para uma festa e encantá-lo.","TOR MIN"],["Deixar a cidade antes que ele me note.","RAV GAN"],["Conversar como se fôssemos velhos amigos.","MAL TZI"],["Investigar se ele é um monstro.","HAQ SAL"],["Montar uma armadilha elaborada e deixá-lo cair sozinho.","RAV MAL TZI"],["Proteger os mortais do bairro dele, antes da minha posição.","SAL BRU"],["Usar os mortos e os esquecidos da cidade para vigiá-lo.","HEC NOS"]]},
+{k:"u",t:"“Daqui a 300 anos, dirão sobre mim...”",o:[
+["“Governou a cidade.”","VEN2 LAS1"],["“Derrubou os tiranos.”","BRU2 HAQ1"],["“Criou o que ninguém entendia.”","TZI2 TOR1"],["“Ninguém sabe quem foi, mas sabia de tudo.”","NOS2 TRE1"],["“Salvou quem os outros abandonaram.”","SAL2 GAN1"],["“Fundou uma fé.”","MIN2 LAS1"],["“Foi livre até o fim e ninguém o domou.”","GAN2 RAV1"],["“Via o que os outros não viam.”","MAL2 HEC1"],["“Guardou os mortos e seus segredos.”","HEC2 NOS1"],["“Foi a lenda de quem escapou de todas as armadilhas.”","RAV2 GAN1"],["“Manteve a humanidade, apesar de tudo.”","SAL2 BRU1"]]},
+{k:"u",t:"Onde você dorme durante o dia, e o que o seu refúgio diz sobre você?",o:[
+["Uma cobertura ou mansão, com seguranças e criados.","VEN2 LAS1"],["Um apartamento cheio de arte, discos, livros e tecidos.","TOR2 MAL1"],["Um bunker ou laboratório, com livros, ferramentas e símbolos.","TRE2 TZI1"],["Um porão, esgoto ou túnel: ninguém sabe que existe.","NOS2 HAQ1"],["Uma cripta, funerária ou casa velha, entre lembranças.","HEC2 SAL1"],["Um abrigo improvisado na mata ou na estrada, sempre mudando.","GAN2 RAV1"],["Um espaço compartilhado, com os meus: festas, sofás, risadas.","BRU2 MIN1"],["Um templo, capela ou lugar de fé e reunião.","MIN2 LAS1"],["Um refúgio simples e acolhedor, aberto a quem precisar.","SAL2 BRU1"],["Um lugar que muda de forma, cheio de coisas estranhas ou vivas.","TZI2 MAL1"],["Um quarto secreto e vigiado, longe de olhos curiosos.","HAQ2 NOS1"]]}
+];
+
+Q.forEach(x=>{if(x.k=="f")x.n=Math.round(x.o.length*0.8);});
+
+const SE={Camarilla:"VEN TRE TOR NOS MAL",Anarquista:"BRU GAN RAV MIN",Independente:"HAQ SAL HEC LAS TZI"};
+
+const $=id=>document.getElementById(id);
+$("quiz").innerHTML=Q.map((x,i)=>{
+  let h="<fieldset><legend><b>"+(i+1)+". "+x.t.replace(/\{n\}/g,x.n)+"</b></legend>";
+  if(x.k=="u")h+=x.o.map((o,j)=>'<label><input type="radio" name="q'+i+'" value="'+j+'"> '+o[0]+"</label><br>").join("");
+  if(x.k=="s")h+=x.r.map((r,j)=>`<p><b>1:</b> ${r[0]}<br><b>10:</b> ${r[1]}</p><table border="1"><tr>`+[1,2,3,4,5,6,7,8,9,10].map(n=>`<td><label><input type="radio" name="q${i}_${j}" value="${n}" onclick="document.getElementById('v${i}_${j}').textContent=this.value"> ${n}</label></td>`).join("")+`</tr></table><p>Número marcado: <output id="v${i}_${j}">nenhum</output></p>`).join("");
+  if(x.k=="p")h+=x.s.map((s,a)=>"<p>"+s[0]+': <select name="q'+i+"_"+a+'"><option value="">escolha...</option>'+(s[2]||x.o).map((o,j)=>'<option value="'+j+'">'+o[0]+"</option>").join("")+"</select></p>").join("");
+  if(x.k=="f")h+='<p><b>Pontos gastos: <output id="cont">0</output> de '+x.n+'</b> <span id="aviso" role="status"></span></p>'+x.o.map((o,j)=>"<p>"+o[0]+'<span class="lv">'+[1,2,3].map(n=>'<label><input type="checkbox" name="q'+i+"_"+j+'" value="'+n+'" onclick="marca(this)"> '+["Me atrai","Me move","Me consome"][n-1]+"</label>").join("")+"</span></p>").join("");
+  return h+"</fieldset>";
+}).join("");
+
+function quebra(c,t,x,y,larg,alt){
+  let l="";
+  t.split(" ").forEach(pal=>{
+    const n=l?l+" "+pal:pal;
+    if(c.measureText(n).width>larg&&l){c.fillText(l,x,y);y+=alt;l=pal;}else l=n;
+  });
+  c.fillText(l,x,y);
+  return y+alt;
+}
+
+function desenha(d){
+  const cv=document.createElement("canvas");
+  cv.width=1080;cv.height=1350;
+  const c=cv.getContext("2d");
+  c.fillStyle="#141212";c.fillRect(0,0,1080,1350);
+  c.strokeStyle="#b30000";c.lineWidth=8;c.strokeRect(40,40,1000,1270);
+  c.textAlign="center";
+  c.fillStyle="#bbbbbb";c.font="34px sans-serif";c.fillText("A qual Clã de Vampiro você pertence?",540,135);
+  c.fillStyle="#ffffff";c.font="bold 54px sans-serif";c.fillText("Meu clã é",540,300);
+  let fs=150;c.font="bold "+fs+"px serif";
+  while(c.measureText(d.nome).width>880){fs-=6;c.font="bold "+fs+"px serif";}
+  c.fillStyle="#d40000";c.fillText(d.nome,540,455);
+  c.fillStyle="#ffffff";c.font="40px sans-serif";c.fillText(d.pct+"% de afinidade",540,530);
+  c.font="italic bold 48px serif";c.fillText(d.arq,540,615);
+  c.fillStyle="#cccccc";c.font="italic 38px serif";
+  quebra(c,"“"+d.frase+"”",540,705,860,52);
+  c.fillStyle="#ffffff";c.font="bold 38px sans-serif";c.fillText("Meu top 3",540,925);
+  c.font="36px sans-serif";c.fillStyle="#dddddd";
+  d.top.forEach((t,i)=>c.fillText((i+1)+". "+t[0]+" ("+t[1]+"%)",540,985+i*55));
+  c.fillStyle="#bbbbbb";c.font="30px sans-serif";
+  c.fillText("Disciplinas: "+d.disc,540,1170);
+  c.fillText("Seita provável: "+d.seita,540,1220);
+  c.fillStyle="#888888";c.font="26px sans-serif";c.fillText("Faça o quiz e descubra o seu clã",540,1275);
+  return cv;
+}
+
+let cartao=null,cvs=null;
+
+function abreCard(){
+  cvs=desenha(cartao);
+  document.getElementById("pv").src=cvs.toDataURL("image/png");
+  const dlg=document.getElementById("dlg");
+  if(!dlg.open)dlg.showModal();
+}
+
+function baixa(){
+  const a=document.createElement("a");
+  a.href=document.getElementById("pv").src;
+  a.download="meu-cla.png";
+  a.click();
+}
+
+function compartilha(){
+  cvs.toBlob(b=>{
+    const f=new File([b],"meu-cla.png",{type:"image/png"});
+    if(navigator.canShare&&navigator.canShare({files:[f]}))navigator.share({files:[f],title:"Meu clã de Vampiro"}).catch(()=>{});
+    else alert("Seu navegador não permite compartilhar direto. Use “Baixar imagem”.");
+  });
+}
+
+function marca(e){
+  const L=Q.find(q=>q.k=="f").n,bx=[...document.getElementsByName(e.name)],v=+e.value;
+  const ant=bx.filter(b=>b.checked&&b!==e).length+(e.checked?0:1)-(e.checked?0:0);
+  const nv=e.checked?v:v-1;
+  const fora=[...document.querySelectorAll('input[type=checkbox]:checked')].filter(b=>b.name!=e.name).length;
+  const set=l=>bx.forEach(b=>b.checked=+b.value<=l);
+  if(fora+nv>L){set(Math.min(ant,L-fora));$("aviso").textContent="Limite de "+L+" pontos atingido: desmarque algo antes.";}
+  else{set(nv);$("aviso").textContent="";}
+  $("cont").value=document.querySelectorAll('input[type=checkbox]:checked').length;
+}
+
+function calc(){
+  const S={},A=[];
+  Object.keys(C).forEach(k=>S[k]=0);
+  const add=(l,p)=>l.split(" ").forEach(c=>S[c]+=p);
+  const g=n=>document.querySelector('[name="'+n+'"]');
+  for(let i=0;i<Q.length;i++){
+    const x=Q[i],n="Pergunta "+(i+1)+": ";
+    if(x.k=="u"){
+      const r=document.querySelector('input[name="q'+i+'"]:checked');
+      if(!r)return{e:n+"escolha uma resposta."};
+      A[i]=+r.value;
+      [...x.o[A[i]][1].matchAll(/([A-Z]{3})(\d)/g)].forEach(m=>S[m[1]]+=+m[2]);
+    }
+    if(x.k=="s"){
+      A[i]=[];
+      for(let j=0;j<x.r.length;j++){
+        const e=document.querySelector('input[name="q'+i+"_"+j+'"]:checked');
+        if(!e)return{e:n+"marque um número de 1 a 10 em todos os dilemas (falta o "+(j+1)+"º)."};
+        A[i].push(+e.value);
+      }
+      A[i].forEach((v,j)=>{
+        if(v<=3)add(x.r[j][2],2);else if(v==4)add(x.r[j][2],1);
+        if(v>=8)add(x.r[j][3],2);else if(v==7)add(x.r[j][3],1);
+      });
+    }
+    if(x.k=="p"){
+      const v=x.s.map((q,a)=>g("q"+i+"_"+a).value);
+      if(v.some(b=>b===""))return{e:n+"preencha todas as escolhas."};
+      if(v[0]===v[1])return{e:n+"a 1ª e a 2ª escolha devem ser diferentes."};
+      A[i]=v.map(Number);
+      x.s.forEach((q,a)=>add((q[2]||x.o)[v[a]][1],q[1]));
+    }
+    if(x.k=="f"){
+      const v=x.o.map((o,j)=>document.querySelectorAll('input[name="q'+i+"_"+j+'"]:checked').length);
+      const t=v.reduce((a,b)=>a+b,0);
+      if(t!=x.n)return{e:n+"gaste exatamente "+x.n+" pontos (agora: "+t+")."};
+      A[i]=v;v.forEach((q,j)=>{if(q)add(x.o[j][1],q);});
+    }
+  }
+  return{S,A};
+}
+
+$("ok").onclick=function(){
+  const r=calc();
+  if(r.e){$("erro").textContent=r.e;const m=r.e.match(/Pergunta (\d+)/),f=m&&document.querySelectorAll("#quiz fieldset")[m[1]-1];if(f){f.classList.add("falta");f.scrollIntoView({behavior:"smooth",block:"center"});}return;}
+  $("erro").textContent="";
+  const {S,A}=r;
+  const rank=Object.keys(S).sort((a,b)=>S[b]-S[a]);
+  const total=rank.reduce((t,c)=>t+Math.max(0,S[c]),0)||1;
+  const pct=c=>Math.round(100*Math.max(0,S[c])/total);
+  const top=rank.slice(0,3),m=C[top[0]];
+
+    const E={Camarilla:0,Anarquista:0,Independente:0};
+  if(A[9]==0)E.Camarilla+=2;
+  if(A[9]==1||A[9]==6)E.Anarquista+=2;
+  if(A[7]==3)E.Independente+=2;
+  if(A[3]==5)E.Independente+=1;
+  if(A[0][2]<=4)E.Camarilla+=1;
+  if(A[0][2]>=7)E.Anarquista+=1;
+  Object.keys(SE).forEach(s=>{if(SE[s].split(" ").includes(top[0]))E[s]+=1;});
+  const seita=Object.keys(E).sort((a,b)=>E[b]-E[a])[0];
+
+  const caitiff=S[top[0]]<10||S[top[0]]-S[top[1]]<=1;
+  let h="<hr><h2>Seu clã principal: "+m[0]+" ("+pct(top[0])+"%)</h2>";
+  h+="<p><i>“"+m[5]+"”</i></p><p>"+m[8]+"</p>";
+  h+="<p><b>Arquétipo:</b> "+m[4]+"</p>";
+  h+="<p><b>Disciplinas:</b> "+m[1]+"</p>";
+  h+="<p><b>Maldição:</b> "+m[2]+"</p>";
+  h+="<p><b>Compulsão:</b> "+m[3]+"</p>";
+  h+="<p><b>Pontos fortes:</b> "+m[6]+"</p>";
+  h+="<p><b>Tensões internas:</b> "+m[7]+"</p>";
+  h+="<h3>Seu top 3</h3><ol>"+top.map(c=>"<li>"+C[c][0]+": "+pct(c)+"% ("+S[c]+" pontos)</li>").join("")+"</ol>";
+  const card=(c,t)=>{const k=C[c];return "<h4>"+k[0]+t+"</h4><p>"+k[8]+"</p><p><b>Disciplinas:</b> "+k[1]+"<br><b>Maldição:</b> "+k[2]+"<br><b>Compulsão:</b> "+k[3]+"</p>";};
+  const com=(a,b)=>C[a][1].split(", ").filter(d=>C[b][1].includes(d));
+  const rest=rank.slice(3),alt=rest.filter(c=>com(c,top[0]).length)[0]||rest[0];
+  h+="<h3>Os clãs indicados para você</h3>"+card(top[1]," ("+pct(top[1])+"%): sua segunda opção")+card(top[2]," ("+pct(top[2])+"%): sua terceira opção");
+  h+="<h3>Se você não se identificou com "+m[0]+"</h3><p>Compare as Maldições e Compulsões acima e escolha o clã cujo defeito você aceitaria viver para sempre: é o ponto que mais pesa no jogo.</p>";
+  h+="<p>Uma alternativa fora do seu top 3"+(com(alt,top[0]).length?", que compartilha as Disciplinas "+com(alt,top[0]).join(", ")+" com "+m[0]:", com um perfil complementar ao seu")+":</p>"+card(alt,"");
+  h+="<h4>Caitiff (sem clã)</h4><p>Se nenhum clã soou verdadeiro, você pode ser Caitiff: um vampiro sem clã, geralmente sem linhagem reconhecida, que monta o conceito junto com o Narrador. Costuma ser desprezado pela sociedade Kindred, mas tem mais liberdade para criar a própria história.</p>";
+  h+="<h3>Seita provável: "+seita+"</h3><p>Indicativo apenas, pois a seita depende da crônica. Pontos: "+Object.keys(E).map(s=>s+" "+E[s]).join(", ")+".</p>";
+  if(caitiff)h+="<h3>Possível Caitiff</h3><p>Sua pontuação ficou baixa ou muito próxima entre o 1º e o 2º clã. Pode ser que nenhum clã se encaixe, o que também é um caminho (Caitiff).</p>";
+  h+="<h3>Pontuação completa</h3><table border=\"1\"><tr><th>Clã</th><th>Pontos</th><th>%</th></tr>"+rank.map(c=>"<tr><td>"+C[c][0]+"</td><td>"+S[c]+"</td><td>"+pct(c)+"%</td></tr>").join("")+"</table>";
+  h+="<h3>Como é calculado</h3><ul><li>Escolha única: o clã principal da resposta ganha 2 pontos e os secundários, 1.</li><li>Dilemas (quadros de 1 a 10): 1 a 3 dá +2 aos clãs da primeira frase e 4 dá +1; 8 a 10 dá +2 aos da segunda e 7 dá +1; 5 e 6 não pontuam.</li><li>Pontos gastos: cada caixa marcada (de 1 a 3 por área) dá +1 aos clãs da área. O limite é 80% do número de áreas (10 áreas = 8 pontos) e todos devem ser gastos.</li><li>Pares de escolhas: a 1ª dá +2 e a 2ª dá +1 (frase, presa); na pergunta da caça, a 3ª escolha (quem você jamais caçaria) dá +1 aos clãs que respeitam esse limite; na pergunta do rival, “faria” dá +2 e “jamais faria” tira 1 ponto dos clãs da opção.</li><li>Porcentagem: pontos do clã (mínimo 0) divididos pelo total de pontos positivos de todos os clãs.</li><li>Possível Caitiff: 1º clã com menos de 10 pontos, ou diferença de 1 ponto ou menos para o 2º.</li><li>Seita: respostas de ambição (pergunta 10), perda (8), Abraço (4), régua 3 e clã principal.</li></ul>";
+  h="<p><button type=\"button\" class=\"plaque sm\" onclick=\"abreCard()\">Abrir card para compartilhar</button></p>"+h;
+  $("res").innerHTML=h;
+  cartao={nome:m[0],pct:pct(top[0]),arq:m[4],frase:m[5],disc:m[1],top:top.map(c=>[C[c][0],pct(c)]),seita:seita};
+  abreCard();
+};
+</script>
+<script>
+$("quiz").addEventListener("change",e=>{if(e.target.tagName=="SELECT")e.target.classList.toggle("resp",!!e.target.value)});
+["change","click"].forEach(t=>$("quiz").addEventListener(t,e=>{const f=e.target.closest("fieldset");if(f)f.classList.remove("falta")}));
+</script>
+</body>
 </html>
