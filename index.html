@@ -10,7 +10,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lexend:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#000;--fg:#f4f4f5;--fg-rgb:244,244,245;--muted:#b9b9be;--blood:#c8101e;--blood-rgb:200,16,30;--blood-edge-l:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 40' preserveAspectRatio='none'%3E%3Cpath d='M0%2C0H84C90%2C2 94%2C4 91%2C8C88%2C12 95%2C13 96%2C17C97%2C21 90%2C22 90%2C26C90%2C30 97%2C31 94%2C35C92%2C38 90%2C39 87%2C40H0Z' fill='white'/%3E%3C/svg%3E");--blood-edge-r:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 40' preserveAspectRatio='none'%3E%3Cpath transform='translate%28100 0%29 scale%28-1 1%29' d='M0%2C0H84C90%2C2 94%2C4 91%2C8C88%2C12 95%2C13 96%2C17C97%2C21 90%2C22 90%2C26C90%2C30 97%2C31 94%2C35C92%2C38 90%2C39 87%2C40H0Z' fill='white'/%3E%3C/svg%3E");}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-snap-type:y mandatory}
+.logos{scroll-snap-align:start;scroll-margin-top:3rem}
+#quiz fieldset{scroll-snap-align:start;scroll-margin-top:2rem;min-height:calc(100svh - 4rem)}
+#ok{scroll-snap-align:center}
+#res{scroll-snap-align:start}
 *{box-sizing:border-box}
 body{margin:0;padding:3rem clamp(1rem,3vw,2.5rem) 4rem;min-height:100vh;background:var(--bg);color:var(--fg);font-family:"Lexend",system-ui,sans-serif;line-height:1.6}
 button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
@@ -28,9 +32,10 @@ h1::after{content:"";display:block;width:7rem;height:1px;margin:1rem auto 0;back
 .lead{text-align:center;color:var(--muted);margin:.8rem 0 2rem}
 #quiz fieldset{min-width:0;margin:2rem 0 0;padding:2rem clamp(1.2rem,3vw,2.5rem) 2.2rem;border:0;background:rgba(var(--fg-rgb),.03)}
 #quiz fieldset.falta{box-shadow:0 0 0 2px #fff}
-#quiz legend{float:left;width:100%;padding:0;margin-bottom:1.4rem;font-size:clamp(1.3rem,2.2vw,1.7rem);line-height:1.4;letter-spacing:.03em;text-transform:uppercase}
+#quiz legend{float:left;width:100%;padding:0;margin-bottom:1.4rem;font-size:clamp(1.3rem,2.2vw,1.7rem);line-height:1.4;font-family:"Cinzel",serif;letter-spacing:.06em;text-transform:uppercase}
 #quiz legend+*{clear:both}
 #quiz p{margin:.9rem 0 0}
+#quiz label,#quiz select,#quiz p,#quiz output{font-family:"Lexend",system-ui,sans-serif}
 #quiz label{position:relative;display:block;margin-top:.5rem;padding:.7rem 1rem .7rem 2.7rem;border:1px solid rgba(var(--fg-rgb),.2);line-height:1.45;cursor:pointer}
 #quiz label::before{content:"";position:absolute;left:1rem;top:50%;width:.8rem;height:.8rem;margin-top:-.4rem;border:2px solid var(--fg);transform:rotate(45deg)}
 #quiz label:has([type=checkbox])::before{transform:none}
@@ -41,8 +46,10 @@ h1::after{content:"";display:block;width:7rem;height:1px;margin:1rem auto 0;back
 #quiz label:has(:focus-visible){outline:2px solid #fff;outline-offset:2px}
 #quiz input[type=radio],#quiz input[type=checkbox]{position:absolute;opacity:0;width:0;height:0;pointer-events:none}
 #quiz label+br{display:none}
-.lv{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.5rem}
-.lv label{flex:1 1 7rem;margin-top:0}
+.lvl{display:block;margin:.9rem 0;padding:.7rem 1rem;color:var(--blood);font-size:.9rem;line-height:1.5;font-weight:400;letter-spacing:.02em}
+.lvl b{font-weight:700;color:inherit}
+.lv{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.7rem}
+.lv label{flex:0 0 11rem;max-width:100%;margin-top:0;padding-right:.8rem}
 #quiz table{display:grid;grid-template-columns:repeat(10,1fr);gap:.3rem;width:100%;margin-top:.6rem;border:0}
 #quiz tbody,#quiz tr{display:contents}
 #quiz td{display:block;padding:0;border:0}
@@ -147,7 +154,7 @@ const Q=[
 ["Prefiro o que é estável, previsível e já comprovado: tradição, rotina, método.","Estou sempre me reinventando; o estranho e o desconhecido me atraem mais que o familiar.","VEN TRE HAQ HEC","MAL TZI RAV MIN TOR"]]},
 {k:"p",t:"A frase que ficou: escolha uma que mais te define e outra que mais dói ouvir.",s:[["Mais me define",2],["Mais dói ouvir",1]],o:[
 ["Você nunca desiste, nem quando deveria.","BRU GAN"],["Você sabe demais sobre todo mundo.","NOS TRE"],["Você parece viver em outro mundo.","MAL HEC"],["Você precisa de plateia.","TOR MIN"],["Você manda e ninguém percebe que obedece.","VEN LAS"],["Você cuida de todos, menos de você.","SAL GAN"],["Você é implacável quando acha que está certo.","HAQ BRU"],["Você nunca fica no mesmo lugar.","RAV GAN"],["Você muda e transforma tudo que toca.","TZI TOR"],["Você parece pertencer a outra época.","HEC TOR"],["Você promete mais do que entrega, mas encanta mesmo assim.","RAV MIN"]]},
-{k:"f",t:"Imagine que sua energia é limitada: você tem {n} pontos para gastar durante toda a sua existência.<br>Distribua-os entre as áreas abaixo usando as três caixas de intensidade de cada uma:<br>“Me atrai” (há interesse, mas é secundário),<br>“Me move” (é importante e influencia as suas escolhas) e<br>“Me consome” (é parte central de quem você é).<br>Marcar um nível alto preenche os anteriores, e cada caixa marcada custa 1 ponto, então uma área no nível máximo custa 3.<br>Você deve gastar todos os {n} pontos.",o:[
+{k:"f",t:"Imagine que sua energia é limitada: você tem {n} pontos para gastar durante toda a sua existência.<br>Distribua-os entre as áreas abaixo usando as três caixas de intensidade de cada uma:<span class='lvl'><b>1. “Me atrai”</b> (há interesse, mas é secundário)</span><span class='lvl'><b>2. “Me move”</b> (é importante e influencia as suas escolhas)</span><span class='lvl'><b>3. “Me consome”</b> (é parte central de quem você é)</span>",o:[
 ["Os meus: família, amigos, matilha ou qualquer companhia que eu escolhi e defenderia.","BRU GAN SAL"],
 ["Dominar um saber: estudar, descobrir segredos e entender como tudo funciona por baixo.","TRE TZI HAQ"],
 ["Uma causa maior: justiça, revolução ou fé em algo que me ultrapassa.","BRU MIN HAQ"],
@@ -201,7 +208,7 @@ $("quiz").innerHTML=Q.map((x,i)=>{
   if(x.k=="u")h+=x.o.map((o,j)=>'<label><input type="radio" name="q'+i+'" value="'+j+'"> '+o[0]+"</label><br>").join("");
   if(x.k=="s")h+=x.r.map((r,j)=>`<p><b>1:</b> ${r[0]}<br><b>10:</b> ${r[1]}</p><table border="1"><tr>`+[1,2,3,4,5,6,7,8,9,10].map(n=>`<td><label><input type="radio" name="q${i}_${j}" value="${n}" onclick="document.getElementById('v${i}_${j}').textContent=this.value"> ${n}</label></td>`).join("")+`</tr></table><p>Número marcado: <output id="v${i}_${j}">nenhum</output></p>`).join("");
   if(x.k=="p")h+=x.s.map((s,a)=>"<p>"+s[0]+': <select name="q'+i+"_"+a+'"><option value="">escolha...</option>'+(s[2]||x.o).map((o,j)=>'<option value="'+j+'">'+o[0]+"</option>").join("")+"</select></p>").join("");
-  if(x.k=="f")h+='<p><b>Pontos gastos: <output id="cont">0</output> de '+x.n+'</b> <span id="aviso" role="status"></span></p>'+x.o.map((o,j)=>"<p>"+o[0]+'<span class="lv">'+[1,2,3].map(n=>'<label><input type="checkbox" name="q'+i+"_"+j+'" value="'+n+'" onclick="marca(this)"> '+["Me atrai","Me move","Me consome"][n-1]+"</label>").join("")+"</span></p>").join("");
+  if(x.k=="f")h+='<p><b>Pontos gastos: <output id="cont">0</output> de '+x.n+'</b> <span id="aviso" role="status"></span></p>'+x.o.map((o,j)=>"<p>"+o[0]+'<span class="lv">'+[1,2,3].map(n=>'<label><input type="checkbox" name="q'+i+"_"+j+'" value="'+n+'" onclick="marca(this)"> '+n+". "+["Me atrai","Me move","Me consome"][n-1]+"</label>").join("")+"</span></p>").join("");
   return h+"</fieldset>";
 }).join("");
 
